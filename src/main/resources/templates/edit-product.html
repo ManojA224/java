@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ShopLite | Edit Product</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <img
+                src="/images/logo.jpg"
+                alt="ShopLite"
+                class="sidebar-logo"
+            >
+
+            <div>
+                <strong>ShopLite</strong>
+                <span>Management System</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="/dashboard" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/products" class="nav-item active">
+                <span>▣</span>
+                Products
+            </a>
+
+            <a href="/billing" class="nav-item">
+                <span>▤</span>
+                Billing
+            </a>
+
+            <a href="/sales" class="nav-item">
+                <span>◷</span>
+                Sales
+            </a>
+
+            <a href="/low-stock" class="nav-item">
+                <span>!</span>
+                Low Stock
+            </a>
+
+            <a href="/account" class="nav-item">
+                <span>○</span>
+                Account
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+            <div class="sidebar-footer-text">
+                ShopLite v1.0
+            </div>
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Edit Product</h1>
+
+                <p class="page-subtitle">
+                    Update product and inventory information
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <a
+                    href="/products"
+                    class="btn btn-outline"
+                >
+                    ← Back to Products
+                </a>
+
+                <a
+                    href="/account"
+                    class="user-menu"
+                >
+                    <span class="user-avatar">
+                        U
+                    </span>
+
+                    <span>
+                        Account
+                    </span>
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <section class="page-body">
+
+            <div class="content-card">
+
+                <div class="content-card-header">
+
+                    <div>
+
+                        <h2>
+                            Product Information
+                        </h2>
+
+                        <p>
+                            Update the details of this product
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="productMessage"
+                    class="hidden"
+                    role="alert"
+                ></div>
+
+
+                <div
+                    id="loadingMessage"
+                    class="loading"
+                >
+
+                    <div class="spinner"></div>
+
+                    Loading product...
+
+                </div>
+
+
+                <form
+                    id="productForm"
+                    class="hidden"
+                    novalidate
+                >
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                Product Name
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                maxlength="150"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="category">
+                                Category
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="category"
+                                name="category"
+                                maxlength="100"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="price">
+                                Selling Price
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="input-with-prefix">
+
+                                <span>₹</span>
+
+                                <input
+                                    type="number"
+                                    id="price"
+                                    name="price"
+                                    min="0"
+                                    step="0.01"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="stockQuantity">
+                                Stock Quantity
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="stockQuantity"
+                                name="stockQuantity"
+                                min="0"
+                                step="1"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="reorderLevel">
+                                Reorder Level
+                            </label>
+
+                            <input
+                                type="number"
+                                id="reorderLevel"
+                                name="reorderLevel"
+                                min="0"
+                                step="1"
+                            >
+
+                            <small class="form-help">
+                                Low-stock alerts are triggered at this level.
+                            </small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="sku">
+                                SKU / Product Code
+                            </label>
+
+                            <input
+                                type="text"
+                                id="sku"
+                                name="sku"
+                                maxlength="50"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group form-group-full">
+
+                            <label for="imageUrl">
+                                Product Image URL
+                            </label>
+
+                            <input
+                                type="url"
+                                id="imageUrl"
+                                name="imageUrl"
+                                placeholder="Optional image URL"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <a
+                            href="/products"
+                            class="btn btn-outline"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="button"
+                            id="deleteProductButton"
+                            class="btn btn-danger"
+                        >
+                            Delete Product
+                        </button>
+
+                        <button
+                            type="submit"
+                            id="saveProductButton"
+                            class="btn btn-primary"
+                        >
+                            Save Changes
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const user =
+        sessionStorage.getItem("shopliteUser");
+
+
+    if (!user) {
+
+        window.location.href =
+            "/login";
+
+        return;
+    }
+
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const productId =
+        params.get("id");
+
+
+    const form =
+        document.getElementById(
+            "productForm"
+        );
+
+
+    const loadingMessage =
+        document.getElementById(
+            "loadingMessage"
+        );
+
+
+    const message =
+        document.getElementById(
+            "productMessage"
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            "saveProductButton"
+        );
+
+
+    const deleteButton =
+        document.getElementById(
+            "deleteProductButton"
+        );
+
+
+    if (!productId) {
+
+        showMessage(
+            "Product ID is missing.",
+            "error"
+        );
+
+        loadingMessage.classList.add(
+            "hidden"
+        );
+
+        return;
+    }
+
+
+    loadProduct();
+
+
+    form.addEventListener(
+        "submit",
+        updateProduct
+    );
+
+
+    deleteButton.addEventListener(
+        "click",
+        deleteProduct
+    );
+
+
+    async function loadProduct() {
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/products/${encodeURIComponent(
+                        productId
+                    )}`
+                );
+
+
+            const data =
+                await response
+                    .json()
+                    .catch(() => ({}));
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load product."
+                );
+            }
+
+
+            fillForm(data);
+
+
+            loadingMessage.classList.add(
+                "hidden"
+            );
+
+            form.classList.remove(
+                "hidden"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Product loading error:",
+                error
+            );
+
+
+            loadingMessage.classList.add(
+                "hidden"
+            );
+
+
+            showMessage(
+                error.message ||
+                "Unable to load product.",
+                "error"
+            );
+        }
+    }
+
+
+    function fillForm(product) {
+
+        document.getElementById("name").value =
+            product.name || "";
+
+
+        document.getElementById("category").value =
+            product.category || "";
+
+
+        document.getElementById("price").value =
+            product.price ?? "";
+
+
+        document.getElementById("stockQuantity").value =
+            product.stockQuantity ??
+            product.stock ??
+            0;
+
+
+        document.getElementById("reorderLevel").value =
+            product.reorderLevel ??
+            product.minimumStock ??
+            5;
+
+
+        document.getElementById("sku").value =
+            product.sku || "";
+
+
+        document.getElementById("imageUrl").value =
+            product.imageUrl || "";
+    }
+
+
+    async function updateProduct(event) {
+
+        event.preventDefault();
+
+
+        const name =
+            document.getElementById("name")
+                .value
+                .trim();
+
+
+        const category =
+            document.getElementById("category")
+                .value
+                .trim();
+
+
+        const price =
+            Number(
+                document.getElementById("price")
+                    .value
+            );
+
+
+        const stockQuantity =
+            Number(
+                document.getElementById(
+                    "stockQuantity"
+                ).value
+            );
+
+
+        const reorderLevel =
+            Number(
+                document.getElementById(
+                    "reorderLevel"
+                ).value || 0
+            );
+
+
+        const sku =
+            document.getElementById("sku")
+                .value
+                .trim();
+
+
+        const imageUrl =
+            document.getElementById("imageUrl")
+                .value
+                .trim();
+
+
+        if (!name || !category) {
+
+            showMessage(
+                "Product name and category are required.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (
+            !Number.isFinite(price) ||
+            price < 0
+        ) {
+
+            showMessage(
+                "Please enter a valid selling price.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (
+            !Number.isInteger(stockQuantity) ||
+            stockQuantity < 0
+        ) {
+
+            showMessage(
+                "Please enter a valid stock quantity.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (
+            !Number.isInteger(reorderLevel) ||
+            reorderLevel < 0
+        ) {
+
+            showMessage(
+                "Please enter a valid reorder level.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        const payload = {
+
+            name,
+
+            category,
+
+            price,
+
+            stockQuantity,
+
+            reorderLevel,
+
+            sku,
+
+            imageUrl
+
+        };
+
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/products/${encodeURIComponent(
+                        productId
+                    )}`,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                payload
+                            )
+                    }
+                );
+
+
+            const data =
+                await response
+                    .json()
+                    .catch(() => ({}));
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to update product."
+                );
+            }
+
+
+            showMessage(
+                "Product updated successfully.",
+                "success"
+            );
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "/products";
+
+            }, 700);
+
+
+        } catch (error) {
+
+            console.error(
+                "Product update error:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Unable to update product.",
+                "error"
+            );
+
+
+        } finally {
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "Save Changes";
+        }
+    }
+
+
+    async function deleteProduct() {
+
+        const confirmed =
+            window.confirm(
+                "Are you sure you want to permanently delete this product?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        deleteButton.disabled =
+            true;
+
+        deleteButton.textContent =
+            "Deleting...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/products/${encodeURIComponent(
+                        productId
+                    )}`,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+
+            const data =
+                await response
+                    .json()
+                    .catch(() => ({}));
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to delete product."
+                );
+            }
+
+
+            showMessage(
+                "Product deleted successfully.",
+                "success"
+            );
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "/products";
+
+            }, 700);
+
+
+        } catch (error) {
+
+            console.error(
+                "Product deletion error:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Unable to delete product.",
+                "error"
+            );
+
+
+        } finally {
+
+            deleteButton.disabled =
+                false;
+
+            deleteButton.textContent =
+                "Delete Product";
+        }
+    }
+
+
+    function showMessage(
+        text,
+        type
+    ) {
+
+        message.textContent =
+            text;
+
+        message.className =
+            "alert";
+
+
+        message.classList.add(
+            type === "success"
+                ? "alert-success"
+                : "alert-danger"
+        );
+
+
+        message.classList.remove(
+            "hidden"
+        );
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

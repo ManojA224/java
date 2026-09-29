@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ShopLite | Sales History</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <img
+                src="/images/logo.jpg"
+                alt="ShopLite Logo"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="logo-text">
+                ShopLite
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="/dashboard">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/products">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+            <a href="/billing">
+                <span class="nav-icon">▤</span>
+                <span>Billing</span>
+            </a>
+
+            <a
+                href="/sales"
+                class="active"
+            >
+                <span class="nav-icon">▥</span>
+                <span>Sales</span>
+            </a>
+
+            <a href="/low-stock">
+                <span class="nav-icon">!</span>
+                <span>Low Stock</span>
+            </a>
+
+            <a href="/account">
+                <span class="nav-icon">○</span>
+                <span>Account</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div>
+
+                <h1 class="page-title">
+                    Sales History
+                </h1>
+
+                <p class="page-subtitle">
+                    View completed transactions and sales revenue.
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <a
+                    href="/billing"
+                    class="btn btn-primary"
+                >
+                    + New Bill
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <div
+            id="salesMessage"
+            class="hidden"
+        ></div>
+
+
+        <!-- Summary -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-card-content">
+
+                    <div>
+
+                        <div class="stat-label">
+                            Total Bills
+                        </div>
+
+                        <div
+                            id="salesCount"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        #
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-card-content">
+
+                    <div>
+
+                        <div class="stat-label">
+                            Total Revenue
+                        </div>
+
+                        <div
+                            id="salesRevenue"
+                            class="stat-value"
+                        >
+                            ₹0.00
+                        </div>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        ₹
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Filters -->
+        <section
+            class="card"
+            style="margin-bottom: 20px;"
+        >
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="card-title">
+                        Filter Sales
+                    </div>
+
+                    <div class="card-subtitle">
+                        View sales between selected dates.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <form
+                id="salesFilterForm"
+                style="
+                    display: grid;
+                    grid-template-columns:
+                        1fr 1fr auto auto;
+                    gap: 12px;
+                    align-items: end;
+                "
+            >
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="startDate"
+                    >
+                        From Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="startDate"
+                        class="form-control"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="endDate"
+                    >
+                        To Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="endDate"
+                        class="form-control"
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Apply Filter
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="clearFilter()"
+                >
+                    Clear
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Sales Table -->
+        <section class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="card-title">
+                        Transactions
+                    </div>
+
+                    <div class="card-subtitle">
+                        Complete sales history
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="salesList">
+
+                <div class="loading">
+
+                    <div class="spinner"></div>
+
+                    Loading sales...
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="/js/sales.js"></script>
+
+</body>
+</html>

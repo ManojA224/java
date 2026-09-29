@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ShopLite | Billing</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <img
+                src="/images/logo.jpg"
+                alt="ShopLite Logo"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="logo-text">
+                ShopLite
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="/dashboard">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/products">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+            <a
+                href="/billing"
+                class="active"
+            >
+                <span class="nav-icon">▤</span>
+                <span>Billing</span>
+            </a>
+
+            <a href="/sales">
+                <span class="nav-icon">▥</span>
+                <span>Sales</span>
+            </a>
+
+            <a href="/low-stock">
+                <span class="nav-icon">!</span>
+                <span>Low Stock</span>
+            </a>
+
+            <a href="/account">
+                <span class="nav-icon">○</span>
+                <span>Account</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div>
+
+                <h1 class="page-title">
+                    Create Bill
+                </h1>
+
+                <p class="page-subtitle">
+                    Create a professional bill for your customer.
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <a
+                    href="/sales"
+                    class="btn btn-outline"
+                >
+                    Sales History
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <div
+            id="billingMessage"
+            class="hidden"
+        ></div>
+
+
+        <form
+            id="billingForm"
+            novalidate
+        >
+
+            <section class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="card-title">
+                            Add Products
+                        </div>
+
+                        <div class="card-subtitle">
+                            Select products and quantities for this bill.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns:
+                            minmax(0, 2fr)
+                            160px
+                            160px
+                            auto;
+                        gap: 12px;
+                        align-items: end;
+                    "
+                >
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="productSelect"
+                        >
+                            Product
+                        </label>
+
+                        <select
+                            id="productSelect"
+                            class="form-control"
+                        >
+
+                            <option value="">
+                                Loading products...
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="productQuantity"
+                        >
+                            Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="productQuantity"
+                            class="form-control"
+                            value="1"
+                            min="1"
+                            step="1"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                        >
+                            Item Total
+                        </label>
+
+                        <div
+                            id="selectedProductTotal"
+                            class="form-control"
+                            style="
+                                background: var(--background);
+                                display: flex;
+                                align-items: center;
+                            "
+                        >
+                            ₹0.00
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="addToBill"
+                        class="btn btn-primary"
+                    >
+                        Add
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <section
+                class="card"
+                style="margin-top: 20px;"
+            >
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="card-title">
+                            Bill Items
+                        </div>
+
+                        <div class="card-subtitle">
+                            Review the items before creating the bill.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="emptyBill"
+                    class="empty-state"
+                >
+
+                    <div class="empty-state-icon">
+                        🧾
+                    </div>
+
+                    <div class="empty-state-title">
+                        No products added
+                    </div>
+
+                    <p>
+                        Select a product above to start the bill.
+                    </p>
+
+                </div>
+
+
+                <div id="billItems"></div>
+
+
+                <div
+                    style="
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        gap: 20px;
+                        margin-top: 20px;
+                        padding-top: 20px;
+                        border-top: 1px solid var(--border);
+                    "
+                >
+
+                    <span class="text-muted">
+                        Grand Total
+                    </span>
+
+                    <strong
+                        id="billTotal"
+                        style="
+                            font-size: 24px;
+                        "
+                    >
+                        ₹0.00
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <section
+                class="card"
+                style="margin-top: 20px;"
+            >
+
+                <div
+                    class="d-flex gap-10"
+                    style="
+                        justify-content: flex-end;
+                    "
+                >
+
+                    <a
+                        href="/dashboard"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        id="createBillButton"
+                        class="btn btn-primary"
+                    >
+                        Create Bill
+                    </button>
+
+                </div>
+
+            </section>
+
+        </form>
+
+    </main>
+
+</div>
+
+
+<script src="/js/billing.js"></script>
+
+</body>
+</html>

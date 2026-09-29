@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ShopLite | Bill</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <style>
+        .bill-page {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .bill-paper {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .bill-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .bill-brand img {
+            width: 58px;
+            height: 58px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .bill-brand h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .bill-brand p {
+            margin: 4px 0 0;
+            color: var(--text-muted);
+        }
+
+        .bill-meta {
+            text-align: right;
+        }
+
+        .bill-meta h2 {
+            margin: 0 0 8px;
+            font-size: 22px;
+        }
+
+        .bill-meta p {
+            margin: 4px 0;
+            color: var(--text-muted);
+        }
+
+        .bill-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .bill-info-box {
+            padding: 16px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+
+        .bill-info-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .bill-info-value {
+            font-weight: 600;
+        }
+
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .bill-table th,
+        .bill-table td {
+            padding: 13px 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bill-table th {
+            background: var(--background);
+            font-size: 13px;
+        }
+
+        .bill-table .amount {
+            text-align: right;
+        }
+
+        .bill-total-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .bill-total-box {
+            width: 300px;
+        }
+
+        .bill-total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .bill-grand-total {
+            border-top: 2px solid var(--text);
+            margin-top: 8px;
+            padding-top: 14px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .bill-footer {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        @media print {
+            body {
+                background: #ffffff !important;
+            }
+
+            .sidebar,
+            .top-header,
+            .bill-actions {
+                display: none !important;
+            }
+
+            .main-content {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .bill-paper {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .bill-page {
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .bill-paper {
+                padding: 20px;
+            }
+
+            .bill-header {
+                flex-direction: column;
+            }
+
+            .bill-meta {
+                text-align: left;
+            }
+
+            .bill-info {
+                grid-template-columns: 1fr;
+            }
+
+            .bill-table {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <img
+                src="/images/logo.jpg"
+                alt="ShopLite Logo"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="logo-text">
+                ShopLite
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="/dashboard">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/products">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+            <a href="/billing">
+                <span class="nav-icon">▤</span>
+                <span>Billing</span>
+            </a>
+
+            <a
+                href="/sales"
+                class="active"
+            >
+                <span class="nav-icon">▥</span>
+                <span>Sales</span>
+            </a>
+
+            <a href="/low-stock">
+                <span class="nav-icon">!</span>
+                <span>Low Stock</span>
+            </a>
+
+            <a href="/account">
+                <span class="nav-icon">○</span>
+                <span>Account</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div>
+
+                <h1 class="page-title">
+                    Bill Details
+                </h1>
+
+                <p class="page-subtitle">
+                    View, print or save the completed bill.
+                </p>
+
+            </div>
+
+            <div
+                class="header-actions bill-actions"
+            >
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="window.print()"
+                >
+                    Print Bill
+                </button>
+
+                <a
+                    href="/billing"
+                    class="btn btn-primary"
+                >
+                    New Bill
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <div
+            id="billMessage"
+            class="hidden"
+        ></div>
+
+
+        <div class="bill-page">
+
+            <section class="bill-paper">
+
+                <div class="bill-header">
+
+                    <div class="bill-brand">
+
+                        <img
+                            src="/images/logo.jpg"
+                            alt="ShopLite"
+                            onerror="this.style.display='none'"
+                        >
+
+                        <div>
+
+                            <h1>
+                                ShopLite
+                            </h1>
+
+                            <p>
+                                Inventory & Billing Management
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bill-meta">
+
+                        <h2>
+                            INVOICE
+                        </h2>
+
+                        <p>
+                            Bill No:
+                            <strong id="billNumber">
+                                —
+                            </strong>
+                        </p>
+
+                        <p>
+                            Date:
+                            <strong id="billDate">
+                                —
+                            </strong>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bill-info">
+
+                    <div class="bill-info-box">
+
+                        <div class="bill-info-label">
+                            BILLED BY
+                        </div>
+
+                        <div
+                            id="billedBy"
+                            class="bill-info-value"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="bill-info-box">
+
+                        <div class="bill-info-label">
+                            PAYMENT STATUS
+                        </div>
+
+                        <div
+                            id="paymentStatus"
+                            class="bill-info-value"
+                        >
+                            Completed
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="billLoading"
+                    class="loading"
+                >
+
+                    <div class="spinner"></div>
+
+                    Loading bill details...
+
+                </div>
+
+
+                <div
+                    id="billContent"
+                    class="hidden"
+                >
+
+                    <table class="bill-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    #
+                                </th>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Quantity
+                                </th>
+
+                                <th class="amount">
+                                    Unit Price
+                                </th>
+
+                                <th class="amount">
+                                    Total
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody
+                            id="billItems"
+                        ></tbody>
+
+                    </table>
+
+
+                    <div class="bill-total-section">
+
+                        <div class="bill-total-box">
+
+                            <div class="bill-total-row">
+
+                                <span>
+                                    Subtotal
+                                </span>
+
+                                <strong
+                                    id="billSubtotal"
+                                >
+                                    ₹0.00
+                                </strong>
+
+                            </div>
+
+
+                            <div class="bill-total-row">
+
+                                <span>
+                                    Tax
+                                </span>
+
+                                <strong>
+                                    ₹0.00
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                class="bill-total-row bill-grand-total"
+                            >
+
+                                <span>
+                                    Grand Total
+                                </span>
+
+                                <strong
+                                    id="billGrandTotal"
+                                >
+                                    ₹0.00
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bill-footer">
+
+                        <strong>
+                            Thank you for shopping with ShopLite.
+                        </strong>
+
+                        <br>
+
+                        Please keep this bill for your records.
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const user =
+            sessionStorage.getItem(
+                "shopliteUser"
+            );
+
+        if (!user) {
+
+            window.location.href =
+                "/login";
+
+            return;
+        }
+
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const billId =
+            params.get("id");
+
+
+        if (!billId) {
+
+            showMessage(
+                "Bill ID is missing.",
+                "error"
+            );
+
+            document.getElementById(
+                "billLoading"
+            ).classList.add("hidden");
+
+            return;
+        }
+
+
+        loadBill();
+
+
+        async function loadBill() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/sales/${encodeURIComponent(
+                            billId
+                        )}`
+                    );
+
+
+                const bill =
+                    await response
+                        .json()
+                        .catch(
+                            () => ({})
+                        );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        bill.message ||
+                        "Unable to load bill."
+                    );
+                }
+
+
+                document.getElementById(
+                    "billNumber"
+                ).textContent =
+                    bill.billNumber ||
+                    `#${bill.id}`;
+
+
+                document.getElementById(
+                    "billDate"
+                ).textContent =
+                    formatDateTime(
+                        bill.saleDate
+                    );
+
+
+                document.getElementById(
+                    "billedBy"
+                ).textContent =
+                    bill.username ||
+                    bill.createdBy ||
+                    "ShopLite";
+
+
+                const items =
+                    Array.isArray(
+                        bill.items
+                    )
+                        ? bill.items
+                        : [];
+
+
+                const itemsContainer =
+                    document.getElementById(
+                        "billItems"
+                    );
+
+
+                itemsContainer.innerHTML =
+                    "";
+
+
+                let subtotal = 0;
+
+
+                items.forEach(
+                    (item, index) => {
+
+                        const quantity =
+                            Number(
+                                item.quantity || 0
+                            );
+
+
+                        const unitPrice =
+                            Number(
+                                item.price ||
+                                item.unitPrice ||
+                                0
+                            );
+
+
+                        const total =
+                            Number(
+                                item.totalPrice ||
+                                item.total ||
+                                unitPrice *
+                                quantity
+                            );
+
+
+                        subtotal += total;
+
+
+                        const row =
+                            document.createElement(
+                                "tr"
+                            );
+
+
+                        row.innerHTML = `
+                            <td>
+                                ${index + 1}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    item.productName ||
+                                    item.name ||
+                                    "Product"
+                                )}
+                            </td>
+
+                            <td>
+                                ${quantity}
+                            </td>
+
+                            <td class="amount">
+                                ${formatCurrency(
+                                    unitPrice
+                                )}
+                            </td>
+
+                            <td class="amount">
+                                ${formatCurrency(
+                                    total
+                                )}
+                            </td>
+                        `;
+
+
+                        itemsContainer.appendChild(
+                            row
+                        );
+                    }
+                );
+
+
+                const grandTotal =
+                    Number(
+                        bill.totalAmount ??
+                        subtotal
+                    );
+
+
+                document.getElementById(
+                    "billSubtotal"
+                ).textContent =
+                    formatCurrency(
+                        subtotal
+                    );
+
+
+                document.getElementById(
+                    "billGrandTotal"
+                ).textContent =
+                    formatCurrency(
+                        grandTotal
+                    );
+
+
+                document.getElementById(
+                    "billLoading"
+                ).classList.add(
+                    "hidden"
+                );
+
+
+                document.getElementById(
+                    "billContent"
+                ).classList.remove(
+                    "hidden"
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Bill loading error:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "billLoading"
+                ).innerHTML = `
+                    <div class="alert alert-danger">
+                        ${escapeHtml(
+                            error.message ||
+                            "Unable to load bill."
+                        )}
+                    </div>
+                `;
+            }
+        }
+
+
+        function formatCurrency(
+            amount
+        ) {
+
+            return new Intl.NumberFormat(
+                "en-IN",
+                {
+                    style: "currency",
+                    currency: "INR",
+                    maximumFractionDigits: 2
+                }
+            ).format(
+                Number(amount || 0)
+            );
+        }
+
+
+        function formatDateTime(
+            value
+        ) {
+
+            if (!value) {
+                return "—";
+            }
+
+
+            const date =
+                new Date(value);
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+                return "—";
+            }
+
+
+            return date.toLocaleString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+        }
+
+
+        function escapeHtml(
+            value
+        ) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+        }
+
+
+        function showMessage(
+            message,
+            type
+        ) {
+
+            const box =
+                document.getElementById(
+                    "billMessage"
+                );
+
+
+            box.textContent =
+                message;
+
+            box.className =
+                "alert";
+
+
+            if (type === "success") {
+
+                box.classList.add(
+                    "alert-success"
+                );
+
+            } else {
+
+                box.classList.add(
+                    "alert-danger"
+                );
+            }
+
+
+            box.classList.remove(
+                "hidden"
+            );
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

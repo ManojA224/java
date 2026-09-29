@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ShopLite | Products</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <img
+                src="/images/logo.jpg"
+                alt="ShopLite"
+                class="sidebar-logo"
+            >
+
+            <div>
+                <strong>ShopLite</strong>
+                <span>Management System</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="/dashboard" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/products" class="nav-item active">
+                <span>▣</span>
+                Products
+            </a>
+
+            <a href="/billing" class="nav-item">
+                <span>▤</span>
+                Billing
+            </a>
+
+            <a href="/sales" class="nav-item">
+                <span>◷</span>
+                Sales
+            </a>
+
+            <a href="/low-stock" class="nav-item">
+                <span>!</span>
+                Low Stock
+            </a>
+
+            <a href="/account" class="nav-item">
+                <span>○</span>
+                Account
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+            <div class="sidebar-footer-text">
+                ShopLite v1.0
+            </div>
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Products</h1>
+
+                <p class="page-subtitle">
+                    Manage your shop inventory
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <a
+                    href="/add-product"
+                    class="btn btn-primary"
+                >
+                    + Add Product
+                </a>
+
+                <a
+                    href="/account"
+                    class="user-menu"
+                >
+                    <span class="user-avatar">
+                        U
+                    </span>
+
+                    <span>
+                        Account
+                    </span>
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <section class="page-body">
+
+
+            <div
+                id="productsMessage"
+                class="hidden"
+                role="alert"
+            ></div>
+
+
+            <!-- Search and Filter -->
+
+            <section class="content-card">
+
+                <div class="content-card-header">
+
+                    <div>
+
+                        <h2>
+                            Product Inventory
+                        </h2>
+
+                        <p>
+                            Search and manage products
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="filter-bar">
+
+                    <div class="form-group search-field">
+
+                        <label for="searchInput">
+                            Search Products
+                        </label>
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Search by product name..."
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="categoryFilter">
+                            Category
+                        </label>
+
+                        <select id="categoryFilter">
+
+                            <option value="">
+                                All Categories
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Product List -->
+
+            <section class="content-card">
+
+                <div
+                    id="productList"
+                    class="product-grid"
+                >
+
+                    <div class="loading">
+
+                        <div class="spinner"></div>
+
+                        Loading products...
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="/js/products.js"></script>
+
+</body>
+
+</html>

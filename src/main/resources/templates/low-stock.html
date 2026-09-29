@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ShopLite | Low Stock</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <img
+                src="/images/logo.jpg"
+                alt="ShopLite Logo"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="logo-text">
+                ShopLite
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="/dashboard">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/products">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+            <a href="/billing">
+                <span class="nav-icon">▤</span>
+                <span>Billing</span>
+            </a>
+
+            <a href="/sales">
+                <span class="nav-icon">▥</span>
+                <span>Sales</span>
+            </a>
+
+            <a
+                href="/low-stock"
+                class="active"
+            >
+                <span class="nav-icon">!</span>
+                <span>Low Stock</span>
+            </a>
+
+            <a href="/account">
+                <span class="nav-icon">○</span>
+                <span>Account</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div>
+
+                <h1 class="page-title">
+                    Low Stock
+                </h1>
+
+                <p class="page-subtitle">
+                    Monitor products that need stock replenishment.
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <a
+                    href="/products"
+                    class="btn btn-primary"
+                >
+                    Manage Products
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <div
+            id="stockMessage"
+            class="hidden"
+        ></div>
+
+
+        <!-- Stock Summary -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-card-content">
+
+                    <div>
+
+                        <div class="stat-label">
+                            Low Stock Items
+                        </div>
+
+                        <div
+                            id="lowStockCount"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        !
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-card-content">
+
+                    <div>
+
+                        <div class="stat-label">
+                            Out of Stock
+                        </div>
+
+                        <div
+                            id="outOfStockCount"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Low Stock Table -->
+        <section class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="card-title">
+                        Stock Alerts
+                    </div>
+
+                    <div class="card-subtitle">
+                        Products requiring attention
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="lowStockList">
+
+                <div class="loading">
+
+                    <div class="spinner"></div>
+
+                    Loading stock information...
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="/js/lowstock.js"></script>
+
+</body>
+</html>
